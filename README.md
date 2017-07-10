@@ -1,5 +1,5 @@
 Code for an ARMv7 Emulator written in F#, using electron for a web-interface.
-This was written as a group project with four other classmates for my High Level Programming Course in 3rd Year EEE at Imperial College London
+This was written as a group project with three other classmates for my High Level Programming Course in 3rd Year EEE at Imperial College London
 
 Installing the dependencies
 ======================
