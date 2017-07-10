@@ -1,0 +1,179 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>ARM Emulator</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../node_modules/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <script src="../node_modules/codemirror/lib/codemirror.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="col-md-8 col-lg-8 panel panel-primary" style="padding:0; margin:0;height: 100vh">
+  <div class="panel-heading">Code Editor
+      <input readonly value="Idle" id="trace" style="width:40% ;margin:0%;margin-left: 2%;color: black;text-align: center"/>
+      <div class="btn-group pull-right">
+        <a id="execute_button" class="btn btn-primary btn-sm">Execute</a>
+        <a id="reset_button" class="btn btn-primary btn-sm">Reset</a>
+        <a id="step_forward_btn" class="btn btn-primary btn-sm">Step Forward</a>
+        <a id="step_back_btn" class="btn btn-primary btn-sm">Step Backward</a>
+        <a id="open_file_button" class="btn btn-primary btn-sm">Open</a>
+        <a id="save_button" class="btn btn-primary btn-sm">Save</a>
+      </div>
+  </div>
+  <div class="panel-body"  style="padding:0; margin:0;height: 92.5vh">
+      <textarea id="code" style="height: 100vh"></textarea>
+  </div>
+</div>
+
+<div class="col-md-4 col-lg-4 tab" style="margin-left: none">
+  <button class="tablinks" onclick="openTab(event, 'Registers')" id="default">Registers</button>
+  <button class="tablinks" onclick="openTab(event, 'Memory')">Memory</button>
+  <div  class="btn-group pull-right">
+      <a id="decimal" class="btn btn-primary btn-sm">Dec</a>
+      <a id="hexa" class="btn btn-primary btn-sm">Hex</a>
+  </div>
+</div>
+
+
+<div id="Registers" class="tabcontent">
+  <div class="col-md-4 col-lg-4 panel panel-info" style="padding:0; margin:0;margin-top:0;height:100%;width:33%">
+        <!--div class="panel-heading">Machine State</div-->
+        <div class="panel-body">  
+            <div class="block">
+                <label>Register 0 </label>
+                <input readonly value=0 id="reg0"/>
+            </div>
+            <div class="block">
+                <label>Register 1 </label>
+                <input readonly value=0 id="reg1"/>
+            </div>
+            <div class="block">
+                <label>Register 2 </label>
+                <input readonly value=0 id="reg2"/>
+            </div>
+            <div class="block">
+                <label>Register 3 </label>
+                <input readonly value=0 id="reg3"/>
+            </div>
+            <div class="block">
+                <label>Register 4 </label>
+                <input readonly value=0 id="reg4"/>
+            </div>
+            <div class="block">
+                <label>Register 5 </label>
+                <input readonly value=0 id="reg5"/>
+            </div>
+            <div class="block">
+                <label>Register 6 </label>
+                <input readonly value=0 id="reg6"/>
+            </div>
+            <div class="block">
+                <label>Register 7 </label>
+                <input readonly value=0 id="reg7"/>
+            </div>
+            <div class="block">
+                <label>Register 8 </label>
+                <input readonly value=0 id="reg8"/>
+            </div>
+            <div class="block">
+                <label>Register 9 </label>
+                <input readonly value=0 id="reg9"/>
+            </div>
+            <div class="block">
+                <label>Register 10 </label>
+                <input readonly value=0 id="reg10"/>
+            </div>
+            <div class="block">
+                <label>Register 11 </label>
+                <input readonly value=0 id="reg11"/>
+            </div>
+            <div class="block">
+                <label>Register 12 </label>
+                <input readonly value=0 id="reg12"/>
+            </div>
+            <div class="block">
+                <label>Register 13</label>
+                <input readonly value=0 id="reg13"/>
+            </div>
+            <div class="block">
+                <label>LR</label>
+                <input readonly value=0 id="reg14"/>
+            </div>
+            <div class="block">
+                <label>PC </label>
+                <input readonly value=0 id="reg15"/>
+            </div>
+            <div class="block" style="margin-top:1%;align-self: center">
+                <label style="width:10%;margin-right:1%">N</label>
+                <input readonly style="width:10%; padding: 4.5px 15px;" value=0 id="N"/>
+                <label style="width:10%;margin-right:1%">Z</label>
+                <input readonly style="width:10%;padding: 4.5px 15px;" value=0 id="Z"/>
+                <label style="width:10%;margin-right:1%">C</label>
+                <input readonly style="width:10%;padding: 4.5px 15px;" value=0 id="C"/>
+                <label style="width:10%;margin-right:1%">V</label>
+                <input readonly style="width:10%;padding: 4.5px 15px;" value=0 id="V"/>
+            </div>
+    </div>  
+</div>
+</div>
+
+<div id="Memory" class="tabcontent">
+    <div class="col-md-4 col-lg-4 panel panel-info">
+        <div class="panel-body" style="height: 100%">  
+             <div id="table-wrapper">
+                <div id="table-scroll">
+                <table id="memtableheader">
+                <thead>
+                    <tr>
+                        <th><label class="text">Address</label></th>
+                        <th><label class="text">Contents</label></th>
+                    </tr>
+                </thead>
+                 </table>
+                 <table id="MemTable">
+                     <tbody>
+                     </tbody>
+                 </table>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
+
+
+
+<!--script> var fs = require('fs') </script-->
+<script>
+//sample function taken from w3s website for tab management
+function openTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+document.getElementById("default").click()
+</script>
+<script src="umd/Main.js"></script>
+
+</body>
+</html>
