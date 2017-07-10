@@ -1,4 +1,6 @@
-Installing the depencies
+Code for an ARMv7 Emulator written in F#, using electron for a web-interface.
+
+Installing the dependencies
 ======================
 
 Make sure that you have [`node`](https://nodejs.org/)
